@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'package:sm_app/widgets/user_posts.dart';
+
 class UserProfileScreen extends StatefulWidget {
   static const routeName = 'user-profile';
 
@@ -46,71 +48,95 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
               userName = data['username'];
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          backgroundImage: NetworkImage(data['userImage']),
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            backgroundImage: NetworkImage(data['userImage']),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text('490'),
-                          Text('Posts'),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text('1200'),
-                          Text('Followers'),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text('113'),
-                          Text('Following'),
-                        ],
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      data['username'],
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text('490'),
+                            Text('Posts'),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text('1200'),
+                            Text('Followers'),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text('113'),
+                            Text('Following'),
+                          ],
+                        )
+                      ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(data['bio']),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      RaisedButton(
-                        onPressed: null,
-                        child: Text('Edit Profile'),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        data['username'],
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ],
-                  ),
-                  Row(),
-                  Row(),
-                ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(data['bio']),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        RaisedButton(
+                          onPressed: null,
+                          child: Text('Edit Profile'),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Center(
+                          child: Icon(Icons.grid_on_sharp),
+                        ),
+                        UserPosts(userName),
+                      ],
+                    )
+                    // DefaultTabController(
+                    //   length: 3,
+                    //   child: TabBarView(
+                    //     children: <Widget>[
+                    //       Tab(
+                    //         child: UserPosts(userName),
+                    //       ),
+                    //       Tab(
+                    //         child: UserPosts(userName),
+                    //       ),
+                    //       Tab(
+                    //         child: UserPosts(userName),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
               );
             } else {
               return Center(
